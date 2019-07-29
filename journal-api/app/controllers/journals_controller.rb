@@ -2,12 +2,12 @@ class JournalsController < ApplicationController
 
     def index 
         journals = Journal.all
-        render :json => journals
+        render json: journals, include: [:entries]
     end
 
     def show
         journal = Journal.find(params[:id])
-        render :json => journal
+        render json: journal, include: [:entries]
     end
 
     def update
