@@ -18,7 +18,8 @@ class EntriesController < ApplicationController
     def update
         entry = Entry.find(params[:id])
         entry.update(title: params[:title], content: params[:content])
-        render :json => entry
+        entries = Entry.all
+        render :json => entries
     end
 
     def destroy
