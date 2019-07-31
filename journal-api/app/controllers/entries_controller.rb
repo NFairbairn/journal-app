@@ -23,8 +23,8 @@ class EntriesController < ApplicationController
 
     def destroy
         entry = Entry.find(params[:id])
-        entries = Entry.all
         entry.delete()
+        entries = Entry.all
         render :json => entries       
     end
 end
