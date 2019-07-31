@@ -1,7 +1,7 @@
 class JournalsController < ApplicationController
 
     def index 
-        journals = Journal.all.sort_by {|journal| journal.created_at }
+        journals = Journal.all.order('created_at DESC')
         render json: journals, include: [:entries]
     end
 
@@ -14,20 +14,22 @@ class JournalsController < ApplicationController
         # byebug
         journal = Journal.new(subject: params[:subject], user_id: params[:user_id])
         journal.save
+        # journals = Journal.all.order('created_at DESC')
+        # render :json => journals 
         render json: journal, include: [:entries]
     end
 
     def update
         journal = Journal.find(params[:id])
         journal.update(subject: params[:subject])
-        journals = Journal.all.sort_by {|journal| journal.created_at }
+        journals = Journal.all.order('created_at DESC')
         render :json => journals 
     end
 
     def destroy
         journal = Journal.find(params[:id])
         journal.delete()
-        journals = Journal.all.sort_by {|journal| journal.created_at }
+        journals = Journal.all.order('created_at DESC')
         render :json => journals       
     end
 end
