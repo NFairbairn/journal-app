@@ -10,6 +10,13 @@ class JournalsController < ApplicationController
         render json: journal, include: [:entries]
     end
 
+    def create
+        # byebug
+        journal = Journal.new(subject: params[:subject], user_id: params[:user_id])
+        journal.save
+        render json: journal, include: [:entries]
+    end
+
     def update
         journal = Journal.find(params[:id])
         journal.update(subject: params[:subject])
@@ -18,8 +25,8 @@ class JournalsController < ApplicationController
 
     def destroy
         journal = Journal.find(params[:id])
-        journals = Journal.all
         journal.delete()
+        journals = Journal.all
         render :json => journals       
     end
 end
